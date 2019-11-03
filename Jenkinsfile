@@ -14,7 +14,7 @@ pipeline {
         }
     stage('Run Playbook') {
         steps {
-            sh 'ansible-playbook ansible/httpd.yaml -u centos -b' -e user=$(username)
+            sh 'ansible-playbook ansible/httpd.yaml -u ec2-user -b' -e users = $username
         }
     }
     }
