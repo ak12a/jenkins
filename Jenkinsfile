@@ -21,5 +21,10 @@ pipeline {
             sh 'ansible-playbook ansible/httpd.yaml -u centos -b -e "user=$username"'
         }
     }
+    stage('Wipe out workspace') {
+            steps {
+                deleteDir()
+            }
+        }
     }
 }
