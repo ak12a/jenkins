@@ -1,5 +1,10 @@
 pipeline {
     agent { node 'master' }
+    
+    parameters {
+        string(defaultValue: "", description: 'Enter the user name', name: 'username')
+    }
+    
     stages{
         stage('Prepare') {
             steps {
@@ -13,7 +18,7 @@ pipeline {
         }
     stage('Run Playbook') {
         steps {
-            sh 'ansible-playbook ansible/httpd.yaml -u centos -b'
+            sh 'ansible-playbook ansible/httpd.yaml -u centos -b -e "user=$username"'
         }
     }
     }
