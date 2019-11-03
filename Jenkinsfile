@@ -1,5 +1,6 @@
 pipeline {
     agent { node 'master' }
+    parameter 
     stages{
         stage('Prepare') {
             steps {
@@ -13,7 +14,7 @@ pipeline {
         }
     stage('Run Playbook') {
         steps {
-            sh 'ansible-playbook ansible/httpd.yaml -u centos -b'
+            sh 'ansible-playbook ansible/httpd.yaml -u centos -b' -e user=$(username)
         }
     }
     }
