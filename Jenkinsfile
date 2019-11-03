@@ -1,6 +1,10 @@
 pipeline {
     agent { node 'master' }
-    parameter 
+    
+    parameters {
+        string(defaultValue: "", description: 'Enter the user name', name: 'username')
+    }
+    
     stages{
         stage('Prepare') {
             steps {
@@ -14,8 +18,13 @@ pipeline {
         }
     stage('Run Playbook') {
         steps {
-            sh 'ansible-playbook ansible/httpd.yaml -u ec2-user -b' -e users = $username
+            sh 'ansible-playbook ansible/httpd.yaml -u centos -b -e "user=$username"'
         }
     }
+    stage('Wipe out workspace') {
+            steps {
+                deleteDir()
+            }
+        }
     }
 }
